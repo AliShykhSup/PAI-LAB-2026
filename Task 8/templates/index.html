@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stock Pulse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Programming for Artificial Intelligence</p>
+      <h1>Stock Pulse</h1>
+      <p class="lead">A simple dynamic Flask app that fetches live stock quotes for your lab submission.</p>
+
+      <form id="quote-form" class="search-card">
+        <label for="symbol">Enter a ticker symbol</label>
+        <div class="search-row">
+          <input id="symbol" name="symbol" type="text" placeholder="AAPL, MSFT, TSLA" autocomplete="off" required>
+          <button type="submit">Get Price</button>
+        </div>
+      </form>
+
+      <div id="status" class="status">Try a symbol to see the latest quote.</div>
+    </section>
+
+    <section class="quote-panel">
+      <div class="quote-header">
+        <span class="dot"></span>
+        <span id="source-label">Live quote</span>
+      </div>
+      <div class="price-block">
+        <h2 id="symbol-label">--</h2>
+        <p id="price-label">$0.00</p>
+      </div>
+
+      <div class="stats">
+        <article>
+          <span>Open</span>
+          <strong id="open-label">--</strong>
+        </article>
+        <article>
+          <span>High</span>
+          <strong id="high-label">--</strong>
+        </article>
+        <article>
+          <span>Low</span>
+          <strong id="low-label">--</strong>
+        </article>
+        <article>
+          <span>Volume</span>
+          <strong id="volume-label">--</strong>
+        </article>
+      </div>
+
+      <div class="insight-card">
+        <span>Stock story</span>
+        <p id="insight-label">Load a quote to generate a short AI story.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

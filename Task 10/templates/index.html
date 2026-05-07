@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 10 - AI Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <section class="hero-card">
+            <div class="hero-copy">
+                <span class="eyebrow">Programming for Artificial Intelligence</span>
+                <h1>Lab 10 Chatbot App</h1>
+                <p>Choose one of the assignment scenarios and chat with a rule-based assistant built with Flask, HTML, CSS, and JavaScript.</p>
+                <div class="meta-row">
+                    <span>Rasikh Ali</span>
+                    <span>Advanced NLP Concepts</span>
+                    <span>Sequence Models, Word Embeddings, ANNs</span>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <label for="botSelect">Select chatbot</label>
+                <select id="botSelect">
+                    {% for key, profile in bot_options.items() %}
+                    <option value="{{ key }}" {% if key == default_bot %}selected{% endif %}>{{ profile.title }}</option>
+                    {% endfor %}
+                </select>
+                <p id="botSubtitle" class="bot-subtitle"></p>
+                <div class="sample-box">
+                    <h2>Quick prompts</h2>
+                    <div id="samplePrompts" class="prompt-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <main class="chat-grid">
+            <section class="chat-card">
+                <div class="chat-header">
+                    <div>
+                        <span class="status-dot"></span>
+                        <span id="chatTitle">Hotel Information Chatbot</span>
+                    </div>
+                    <span class="status-text">Online</span>
+                </div>
+
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot">
+                        <div class="bubble">
+                            Hello! Pick a chatbot from the list above and ask a question to begin.
+                        </div>
+                    </div>
+                </div>
+
+                <form id="chatForm" class="chat-form">
+                    <input id="messageInput" type="text" placeholder="Type your question here..." autocomplete="off" required>
+                    <button type="submit">Send</button>
+                </form>
+            </section>
+
+            <aside class="info-card">
+                <h2>Lab Coverage</h2>
+                <ul>
+                    <li>University Admission Chatbot</li>
+                    <li>Medical Center Information Bot</li>
+                    <li>Hospital Information Chatbot</li>
+                    <li>Hotel Information Chatbot</li>
+                    <li>Restaurant Information Bot</li>
+                    <li>Library Assistant Bot</li>
+                    <li>Campus Tour Bot</li>
+                </ul>
+                <div class="note">
+                    Built as a single web app so you can demonstrate the whole lab with one project.
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        window.BOT_DATA = {{ bot_options | tojson }};
+        window.DEFAULT_BOT = "{{ default_bot }}";
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

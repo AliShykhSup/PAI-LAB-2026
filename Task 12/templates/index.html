@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-shell">
+        <section class="hero-card">
+            <div class="hero-copy">
+                <span class="eyebrow">Programming for Artificial Intelligence</span>
+                <h1>{{ app_title }}</h1>
+                <p>{{ subtitle }}</p>
+                <div class="meta-row">
+                    <span>Similarity scoring</span>
+                    <span>CSV QnA preprocessing</span>
+                    <span>{{ total_questions }} hotel QnA pairs</span>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <form id="searchForm" class="search-stack">
+                    <label for="queryInput">Ask a hotel question</label>
+                    <input id="queryInput" type="text" placeholder="Example: Do you offer late checkout?" autocomplete="off" required>
+                    <button type="submit">Search answers</button>
+                </form>
+                <div class="sample-box">
+                    <h2>Quick prompts</h2>
+                    <div id="samplePrompts" class="prompt-list">
+                        {% for question in sample_questions %}
+                        <button type="button" class="prompt-chip">{{ question }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="chat-grid">
+            <section class="chat-card">
+                <div class="chat-header">
+                    <div>
+                        <span class="status-dot"></span>
+                        <span>Retrieved QnA Results</span>
+                    </div>
+                    <span id="resultCount" class="status-text">Ready</span>
+                </div>
+
+                <div id="resultsPanel" class="chat-messages">
+                    <div class="message bot">
+                        <div class="bubble">
+                            Type a hotel question to see the closest question and answer matches from the FAISS index.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="info-card">
+                <h2>Pipeline</h2>
+                <ul>
+                    <li>Preprocess the hotel Q&A dataset from CSV.</li>
+                    <li>Normalize the text and score similarity.</li>
+                    <li>Rank the closest matches in Flask.</li>
+                    <li>Show the results in the HTML UI.</li>
+                </ul>
+                <div class="note">
+                    This version keeps the project self-contained and avoids any extra package installs.
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script>
+        window.SAMPLE_QUESTIONS = {{ sample_questions | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
